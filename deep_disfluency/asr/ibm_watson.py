@@ -25,6 +25,10 @@ class FakeIBMWatsonStreamer(fluteline.Producer):
             self.put(update)
 
 
+class Printer(fluteline.Consumer):
+    def consume(self, msg):
+        print(msg)
+
 
 class IBMWatsonAdapter(fluteline.Consumer):
     '''
@@ -130,7 +134,8 @@ if __name__ == '__main__':
 
     nodes = [
        FakeIBMWatsonStreamer(fake_updates_data),
-       IBMWatsonAdapter()
+       IBMWatsonAdapter(),
+       Printer(),
     ]
 
     tic = time.clock()
